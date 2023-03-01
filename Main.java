@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static StudentService studentService;
+    public static StudentService studentService;
     private static final int ADD_STUDENT=1;
     private static final int UPDATE_STUDENT=2;
     private  static final int GET_STUDENTS=3;
@@ -40,9 +40,9 @@ public class Main {
                     Student student = studentService.getStudentById(studentId);
                     System.out.printf("%s%s%s","Enter the studentId (",student.getStudentId(),") : ");
                     String newId=scanner.next();
-                    System.out.printf("%s%s%s","Enter the studentId (",student.getFirstName(),") : ");
+                    System.out.printf("%s%s%s","Enter the First Name (",student.getFirstName(),") : ");
                     String firstName = scanner.next();
-                    System.out.printf("%s%s%s","Enter the studentId (",student.getLastName(),") : ");
+                    System.out.printf("%s%s%s","Enter the Last Name (",student.getLastName(),") : ");
                     String lastName=scanner.next();
                     studentService.updateStudent(student,new String[]{newId,firstName,lastName});
                     System.out.println();
@@ -58,12 +58,8 @@ public class Main {
                     studentService.deleteStudent(student);
                     System.out.println();
                 }
-                default -> {
-                    System.out.println("No Such Item");
-                }
+                default -> System.out.println("No Such Item");
             }
-
-
         }while(userOption<5);
     }
 }
