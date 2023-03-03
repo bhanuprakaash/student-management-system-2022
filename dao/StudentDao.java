@@ -4,16 +4,17 @@ import model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 
 public class StudentDao implements Dao<Student>{
     private final List<Student> students = new ArrayList<>();
     @Override
-    public Optional<Student> get(String id) {
+    public Student get(String id) {
         return students.stream()
                 .filter(u -> id.equals(u.getStudentId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Student not found!"));
     }
 
     @Override

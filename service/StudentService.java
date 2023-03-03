@@ -14,7 +14,7 @@ public class StudentService {
 
     public Student getStudentById(String id){
         Student student;
-        student = studentDao.get(id).get();
+        student = studentDao.get(id);
         return student;
     }
 
@@ -37,7 +37,7 @@ public class StudentService {
     }
 
     public void deleteStudent(String studentId){
-        studentDao.delete(studentDao.get(studentId).get());
+        studentDao.delete(studentDao.get(studentId));
     }
 
     public void showMenu(){
