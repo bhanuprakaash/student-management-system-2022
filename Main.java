@@ -23,15 +23,16 @@ public class Main {
             userOption= scanner.nextInt();
             switch (userOption) {
                 case ADD_STUDENT -> {
+                    Student studentToAdd = new Student();
                     System.out.println("Enter the Student Details: ");
                     System.out.print("Student Id: ");
-                    String studentId= scanner.next();
+                    studentToAdd.setStudentId(scanner.next());
                     System.out.print("First Name: ");
-                    String firstName=scanner.next();
+                    studentToAdd.setFirstName(scanner.next());
                     System.out.print("Last Name: ");
-                    String lastName=scanner.next();
+                    studentToAdd.setLastName(scanner.next());
                     System.out.println();
-                    studentService.addStudent(new Student(studentId,firstName,lastName));
+                    studentService.addStudent(studentToAdd);
                     System.out.println();
                 }
                 case UPDATE_STUDENT -> {

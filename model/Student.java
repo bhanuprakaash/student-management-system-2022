@@ -5,12 +5,6 @@ public class Student {
     private String firstName;
     private String lastName;
 
-    public Student(String studentId,String firstName,String lastName){
-        this.studentId=studentId;
-        this.firstName=firstName;
-        this.lastName=lastName;
-    }
-
     public String getStudentId() {
         return studentId;
     }
