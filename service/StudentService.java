@@ -3,7 +3,8 @@ package service;
 import dao.Dao;
 import model.Student;
 
-import java.util.Iterator;
+
+import java.util.List;
 
 public class StudentService {
     private final Dao<Student> studentDao;
@@ -16,14 +17,8 @@ public class StudentService {
         return studentDao.get(id);
     }
 
-    public void getAllStudents(){
-        System.out.println();
-        Iterator<Student> iterator = studentDao.getAll().iterator();
-        System.out.printf("%-12s %-20s %s%n", "StudentId", "FirstName", "LastName");
-        while (iterator.hasNext()){
-            Student student = iterator.next();
-            System.out.printf("%-12s %-20s %s%n",student.getStudentId(),student.getFirstName(),student.getLastName() );
-        }
+    public List<Student> getAllStudents(){
+        return studentDao.getAll();
     }
 
     public void addStudent(Student student){

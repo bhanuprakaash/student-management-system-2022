@@ -3,6 +3,8 @@ import dao.StudentDao;
 import model.Student;
 import service.StudentService;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -49,7 +51,13 @@ public class Main {
                     System.out.println();
                 }
                 case GET_STUDENTS -> {
-                    studentService.getAllStudents();
+                    List<Student> students = studentService.getAllStudents();
+                    Iterator<Student> iterator = students.iterator();
+                    System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
+                    while (iterator.hasNext()){
+                        Student student = iterator.next();
+                        System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName());
+                    }
                     System.out.println();
                 }
                 case DELETE_ACCOUNT->{
