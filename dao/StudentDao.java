@@ -19,7 +19,7 @@ public class StudentDao implements Dao<Student>{
 
     @Override
     public List<Student> getAll() {
-        return students;
+        return new ArrayList<>(students);
     }
 
     @Override
