@@ -1,3 +1,5 @@
+package presentation;
+
 import dao.Dao;
 import dao.StudentDao;
 import model.Student;
@@ -20,8 +22,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Dao<Student> dao = new StudentDao();
         StudentService studentService = new StudentService(dao);
+        Menu menu = new Menu();
         do{
-            studentService.showMenu();
+            menu.showMenu();
             userOption= scanner.nextInt();
             switch (userOption) {
                 case ADD_STUDENT -> {
