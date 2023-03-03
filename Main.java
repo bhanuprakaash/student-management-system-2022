@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static StudentService studentService;
+
     private static final int ADD_STUDENT=1;
     private static final int UPDATE_STUDENT=2;
     private  static final int GET_STUDENTS=3;
@@ -17,7 +17,7 @@ public class Main {
         int userOption;
         Scanner scanner = new Scanner(System.in);
         Dao<Student> dao = new StudentDao();
-        studentService = new StudentService(dao);
+        StudentService studentService = new StudentService(dao);
         do{
             studentService.showMenu();
             userOption= scanner.nextInt();
