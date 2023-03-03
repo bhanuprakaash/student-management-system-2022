@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public class StudentDao implements Dao<Student>{
-    private List<Student> students = new ArrayList<>();
+    private final List<Student> students = new ArrayList<>();
     @Override
     public Optional<Student> get(String id) {
         return students.stream()
@@ -27,10 +27,15 @@ public class StudentDao implements Dao<Student>{
     }
 
     @Override
-    public void update(Student student, String[] params) {
-        student.setStudentId(params[0]);
-        student.setFirstName(params[1]);
-        student.setLastName(params[2]);
+    public void update(Student newValues) {
+        students.stream()
+                .filter(u -> newValues.getStudentId().equals(u.getStudentId()))
+                .findFirst()
+                .ifPresent(u -> {
+                    u.setStudentId(newValues.getStudentId());
+                    u.setFirstName(newValues.getFirstName());
+                    u.setLastName(newValues.getLastName());
+                });
     }
 
     @Override

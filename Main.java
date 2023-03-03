@@ -40,12 +40,12 @@ public class Main {
                     String studentId = scanner.next();
                     Student student = studentService.getStudentById(studentId);
                     System.out.printf("%s%s%s","Enter the studentId (",student.getStudentId(),") : ");
-                    String newId=scanner.next();
+                    student.setStudentId(scanner.next());
                     System.out.printf("%s%s%s","Enter the First Name (",student.getFirstName(),") : ");
-                    String firstName = scanner.next();
+                    student.setFirstName(scanner.next());
                     System.out.printf("%s%s%s","Enter the Last Name (",student.getLastName(),") : ");
-                    String lastName=scanner.next();
-                    studentService.updateStudent(student,new String[]{newId,firstName,lastName});
+                    student.setLastName(scanner.next());
+                    studentService.updateStudent(student);
                     System.out.println();
                 }
                 case GET_STUDENTS -> {

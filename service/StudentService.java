@@ -13,7 +13,8 @@ public class StudentService {
     }
 
     public Student getStudentById(String id){
-        Student student = studentDao.get(id).get();
+        Student student;
+        student = studentDao.get(id).get();
         return student;
     }
 
@@ -31,8 +32,8 @@ public class StudentService {
         studentDao.save(student);
     }
 
-    public void updateStudent(Student student,String[] params){
-        studentDao.update(student,params);
+    public void updateStudent(Student newValues){
+        studentDao.update(newValues);
     }
 
     public void deleteStudent(Student student){
@@ -44,7 +45,10 @@ public class StudentService {
         System.out.println("1: Add Student");
         System.out.println("2: Update Student");
         System.out.println("3: Get Students");
-        System.out.println("4: Delete Student"+"\n\n");
+        System.out.println("""
+                4: Delete Student
+
+                """);
         System.out.println("Which function do you want to execute>");
         System.out.print("Menu Item: ");
     }
