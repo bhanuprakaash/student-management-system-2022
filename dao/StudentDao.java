@@ -40,7 +40,7 @@ public class StudentDao implements Dao<Student>{
     }
 
     @Override
-    public void delete(Student student) {
-        students.remove(student);
+    public void delete(String studentId) {
+        students.remove(get(studentId));
     }
 }

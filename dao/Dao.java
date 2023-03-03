@@ -8,7 +8,7 @@ public interface Dao<T> {
     List<T> getAll();
     void save(T t);
     void update(T newValues);
-    void delete(T t);
+    void delete(String studentId);
 
 
 }

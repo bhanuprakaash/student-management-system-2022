@@ -37,7 +37,7 @@ public class StudentService {
     }
 
     public void deleteStudent(String studentId){
-        studentDao.delete(studentDao.get(studentId));
+        studentDao.delete(studentId);
     }
 
     public void showMenu(){
