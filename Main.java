@@ -55,8 +55,7 @@ public class Main {
                 case DELETE_ACCOUNT->{
                     System.out.print("Enter the id to delete: ");
                     String id= scanner.next();
-                    Student student = studentService.getStudentById(id);
-                    studentService.deleteStudent(student);
+                    studentService.deleteStudent(id);
                     System.out.println();
                 }
                 default -> System.out.println("No Such Item");

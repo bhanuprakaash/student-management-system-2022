@@ -36,8 +36,8 @@ public class StudentService {
         studentDao.update(newValues);
     }
 
-    public void deleteStudent(Student student){
-        studentDao.delete(student);
+    public void deleteStudent(String studentId){
+        studentDao.delete(studentDao.get(studentId).get());
     }
 
     public void showMenu(){
