@@ -13,9 +13,7 @@ public class StudentService {
     }
 
     public Student getStudentById(String id){
-        Student student;
-        student = studentDao.get(id);
-        return student;
+        return studentDao.get(id);
     }
 
     public void getAllStudents(){
