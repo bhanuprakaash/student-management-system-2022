@@ -33,7 +33,6 @@ public class StudentDao implements Dao<Student>{
                 .filter(u -> newValues.getStudentId().equals(u.getStudentId()))
                 .findFirst()
                 .ifPresent(u -> {
-                    u.setStudentId(newValues.getStudentId());
                     u.setFirstName(newValues.getFirstName());
                     u.setLastName(newValues.getLastName());
                 });
