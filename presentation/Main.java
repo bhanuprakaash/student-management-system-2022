@@ -11,12 +11,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
-    private static final int ADD_STUDENT=1;
-    private static final int UPDATE_STUDENT=2;
-    private  static final int GET_STUDENTS=3;
-    private static final int DELETE_ACCOUNT = 4;
-
     public static void main(String[] args) {
         int userOption;
         Scanner scanner = new Scanner(System.in);
@@ -27,7 +21,7 @@ public class Main {
             menu.showMenu();
             userOption= scanner.nextInt();
             switch (userOption) {
-                case ADD_STUDENT -> {
+                case Menu.ADD_STUDENT -> {
                     Student studentToAdd = new Student();
                     System.out.println("Enter the Student Details: ");
                     System.out.print("Student Id: ");
@@ -40,7 +34,7 @@ public class Main {
                     studentService.addStudent(studentToAdd);
                     System.out.println();
                 }
-                case UPDATE_STUDENT -> {
+                case Menu.UPDATE_STUDENT -> {
                     System.out.print("Enter the StudentId to update: ");
                     String studentId = scanner.next();
                     Student student = studentService.getStudentById(studentId);
@@ -53,7 +47,7 @@ public class Main {
                     studentService.updateStudent(student);
                     System.out.println();
                 }
-                case GET_STUDENTS -> {
+                case Menu.GET_STUDENTS -> {
                     List<Student> students = studentService.getAllStudents();
                     Iterator<Student> iterator = students.iterator();
                     System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
@@ -63,7 +57,7 @@ public class Main {
                     }
                     System.out.println();
                 }
-                case DELETE_ACCOUNT->{
+                case Menu.DELETE_STUDENT->{
                     System.out.print("Enter the id to delete: ");
                     String id= scanner.next();
                     studentService.deleteStudent(id);
@@ -71,6 +65,6 @@ public class Main {
                 }
                 default -> System.out.println("No Such Item");
             }
-        }while(userOption<5);
+        }while(userOption<Menu.EXIT);
     }
 }
