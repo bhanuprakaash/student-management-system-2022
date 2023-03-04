@@ -5,7 +5,6 @@ import dao.StudentDao;
 import model.Student;
 import service.StudentService;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,23 +37,22 @@ public class Main {
                     System.out.print("Enter the StudentId to update: ");
                     String studentId = scanner.next();
                     Student student = studentService.getStudentById(studentId);
+                    Student student1 = new Student();
                     System.out.printf("%s%s%s","Enter the studentId (",student.getStudentId(),") : ");
-                    student.setStudentId(scanner.next());
+                    student1.setStudentId(scanner.next());
                     System.out.printf("%s%s%s","Enter the First Name (",student.getFirstName(),") : ");
-                    student.setFirstName(scanner.next());
+                    student1.setFirstName(scanner.next());
                     System.out.printf("%s%s%s","Enter the Last Name (",student.getLastName(),") : ");
-                    student.setLastName(scanner.next());
-                    studentService.updateStudent(student);
+                    student1.setLastName(scanner.next());
+                    studentService.updateStudent(student1);
                     System.out.println();
                 }
                 case Menu.GET_STUDENTS -> {
                     List<Student> students = studentService.getAllStudents();
-                    Iterator<Student> iterator = students.iterator();
                     System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
-                    while (iterator.hasNext()){
-                        Student student = iterator.next();
-                        System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName());
-                    }
+                    students.stream().forEach(student ->
+                            System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                    );
                     System.out.println();
                 }
                 case Menu.DELETE_STUDENT->{
