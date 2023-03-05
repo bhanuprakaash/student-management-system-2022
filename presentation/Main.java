@@ -44,6 +44,7 @@ public class Main {
                     student1.setFirstName(scanner.next());
                     System.out.printf("%s%s%s","Enter the Last Name (",student.getLastName(),") : ");
                     student1.setLastName(scanner.next());
+                    student1.setStudentId(studentId);
                     studentService.updateStudent(student1);
                     System.out.println();
                 }
