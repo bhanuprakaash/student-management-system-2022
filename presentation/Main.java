@@ -37,15 +37,11 @@ public class Main {
                     System.out.print("Enter the StudentId to update: ");
                     String studentId = scanner.next();
                     Student student = studentService.getStudentById(studentId);
-                    Student student1 = new Student();
-                    System.out.printf("%s%s%s","Enter the studentId (",student.getStudentId(),") : ");
-                    student1.setStudentId(scanner.next());
-                    System.out.printf("%s%s%s","Enter the First Name (",student.getFirstName(),") : ");
-                    student1.setFirstName(scanner.next());
-                    System.out.printf("%s%s%s","Enter the Last Name (",student.getLastName(),") : ");
-                    student1.setLastName(scanner.next());
-                    student1.setStudentId(studentId);
-                    studentService.updateStudent(student1);
+                    System.out.printf("Enter the First Name (%s): ", student.getFirstName());
+                    student.setFirstName(scanner.next());
+                    System.out.printf("Enter the Last Name (%s): ", student.getLastName());
+                    student.setLastName(scanner.next());
+                    studentService.updateStudent(student);
                     System.out.println();
                 }
                 case Menu.GET_STUDENTS -> {
@@ -62,8 +58,12 @@ public class Main {
                     studentService.deleteStudent(id);
                     System.out.println();
                 }
+                case Menu.EXIT -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
                 default -> System.out.println("No Such Item");
             }
-        }while(userOption<Menu.EXIT);
+        }while(userOption!=Menu.EXIT);
     }
 }
