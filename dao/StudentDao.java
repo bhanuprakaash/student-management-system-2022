@@ -1,5 +1,7 @@
 package dao;
 
+import exceptions.NoSuchStudentIdExistsException;
+import exceptions.StudentIdAlreadyExistsException;
 import model.Student;
 
 import java.util.ArrayList;
@@ -10,11 +12,11 @@ import java.util.List;
 public class StudentDao implements Dao<Student>{
     private final List<Student> students = new ArrayList<>();
     @Override
-    public Student get(String id) {
+    public Student get(String id) throws NoSuchStudentIdExistsException {
         return students.stream()
                 .filter(u -> id.equals(u.getStudentId()))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Student not found!"));
+                .orElseThrow(() -> new NoSuchStudentIdExistsException(id));
     }
 
     @Override
@@ -23,12 +25,16 @@ public class StudentDao implements Dao<Student>{
     }
 
     @Override
-    public void save(Student student) {
+    public void save(Student student) throws StudentIdAlreadyExistsException {
+        if (students.stream().anyMatch(u -> student.getStudentId().equals(u.getStudentId()))) {
+            throw new StudentIdAlreadyExistsException(student.getStudentId());
+        }
         students.add(student);
     }
 
     @Override
     public void update(Student newValues) {
+        get(newValues.getStudentId());
         students.stream()
                 .filter(u -> newValues.getStudentId().equals(u.getStudentId()))
                 .findFirst()
@@ -39,7 +45,7 @@ public class StudentDao implements Dao<Student>{
     }
 
     @Override
-    public void delete(String studentId) {
+    public void delete(String studentId)  {
         students.remove(get(studentId));
     }
 }

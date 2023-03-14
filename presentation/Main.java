@@ -4,7 +4,10 @@ import dao.Dao;
 import dao.StudentDao;
 import model.Student;
 import service.StudentService;
+import exceptions.NoSuchStudentIdExistsException;
+import exceptions.StudentIdAlreadyExistsException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,13 +33,25 @@ public class Main {
                     System.out.print("Last Name: ");
                     studentToAdd.setLastName(scanner.next());
                     System.out.println();
-                    studentService.addStudent(studentToAdd);
+                    try {
+                        studentService.addStudent(studentToAdd);
+                    } catch (StudentIdAlreadyExistsException e) {
+                        System.err.println(e.getMessage());
+                        break;
+                    }
                     System.out.println();
                 }
                 case Menu.UPDATE_STUDENT -> {
                     System.out.print("Enter the StudentId to update: ");
                     String studentId = scanner.next();
-                    Student student = studentService.getStudentById(studentId);
+                    Student student;
+                    try{
+                        student = studentService.getStudentById(studentId);
+                    }
+                    catch (NoSuchStudentIdExistsException e){
+                        System.err.println(e.getMessage());
+                        break;
+                    }
                     System.out.printf("Enter the First Name (%s): ", student.getFirstName());
                     student.setFirstName(scanner.next());
                     System.out.printf("Enter the Last Name (%s): ", student.getLastName());
@@ -52,10 +67,37 @@ public class Main {
                     );
                     System.out.println();
                 }
+                case Menu.SHOW_AND_SORT_STUDENTS -> {
+                    System.out.println("1: Sort by Student Id");
+                    System.out.println("2: Sort by First Name");
+                    System.out.println("3: Sort by Last Name");
+                    System.out.print("Enter your choice: ");
+                    int choice = scanner.nextInt();
+                    List<Student> students = studentService.getAllStudents();
+                    System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
+                    switch (choice){
+                        case 1 -> students.stream().sorted(Comparator.comparing(Student::getStudentId)).forEach(student ->
+                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                        );
+                        case 2 -> students.stream().sorted(Comparator.comparing(Student::getFirstName)).forEach(student ->
+                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                        );
+                        case 3 -> students.stream().sorted(Comparator.comparing(Student::getLastName)).forEach(student ->
+                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                        );
+                        default -> System.out.println("No Such Item");
+                    }
+                    System.out.println();
+                }
                 case Menu.DELETE_STUDENT->{
                     System.out.print("Enter the id to delete: ");
                     String id= scanner.next();
-                    studentService.deleteStudent(id);
+                    try{
+                        studentService.deleteStudent(id);
+                    }
+                    catch (NoSuchStudentIdExistsException e){
+                        System.err.println(e.getMessage());
+                    }
                     System.out.println();
                 }
                 case Menu.EXIT -> {
