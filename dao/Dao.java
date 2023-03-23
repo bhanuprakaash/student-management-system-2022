@@ -9,6 +9,8 @@ public interface Dao<T> {
     void save(T t);
     void update(T newValues);
     void delete(String studentId);
-
+    List<T> sortStudentsById();
+    List<T> sortStudentsByFirstName();
+    List<T> sortStudentsByLastName();
 
 }

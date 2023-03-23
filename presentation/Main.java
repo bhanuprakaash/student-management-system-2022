@@ -7,7 +7,6 @@ import service.StudentService;
 import exceptions.NoSuchStudentIdExistsException;
 import exceptions.StudentIdAlreadyExistsException;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,16 +72,15 @@ public class Main {
                     System.out.println("3: Sort by Last Name");
                     System.out.print("Enter your choice: ");
                     int choice = scanner.nextInt();
-                    List<Student> students = studentService.getAllStudents();
                     System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
                     switch (choice){
-                        case 1 -> students.stream().sorted(Comparator.comparing(Student::getStudentId)).forEach(student ->
+                        case 1 -> studentService.sortStudentsById().forEach(student ->
                                 System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
                         );
-                        case 2 -> students.stream().sorted(Comparator.comparing(Student::getFirstName)).forEach(student ->
+                        case 2 -> studentService.sortStudentsByFirstName().forEach(student ->
                                 System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
                         );
-                        case 3 -> students.stream().sorted(Comparator.comparing(Student::getLastName)).forEach(student ->
+                        case 3 -> studentService.sortStudentsByLastName().forEach(student ->
                                 System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
                         );
                         default -> System.out.println("No Such Item");

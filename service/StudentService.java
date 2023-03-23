@@ -33,5 +33,16 @@ public class StudentService {
         studentDao.delete(studentId);
     }
 
+    public List<Student> sortStudentsById(){
+        return studentDao.sortStudentsById();
+    }
+
+    public List<Student> sortStudentsByFirstName(){
+        return studentDao.sortStudentsByFirstName();
+    }
+
+    public List<Student> sortStudentsByLastName(){
+        return studentDao.sortStudentsByLastName();
+    }
 
 }

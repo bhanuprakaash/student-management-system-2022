@@ -5,6 +5,7 @@ import exceptions.StudentIdAlreadyExistsException;
 import model.Student;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -48,5 +49,26 @@ public class StudentDao implements Dao<Student>{
     @Override
     public void delete(String studentId)  {
         students.remove(get(studentId));
+    }
+
+    @Override
+    public List<Student> sortStudentsById() {
+        return new ArrayList<>(
+                students.stream().sorted(Comparator.comparing(Student::getStudentId)).toList()
+        );
+    }
+
+    @Override
+    public List<Student> sortStudentsByFirstName() {
+        return new ArrayList<>(
+                students.stream().sorted(Comparator.comparing(Student::getFirstName)).toList()
+        );
+    }
+
+    @Override
+    public List<Student> sortStudentsByLastName() {
+        return new ArrayList<>(
+                students.stream().sorted(Comparator.comparing(Student::getLastName)).toList()
+        );
     }
 }
