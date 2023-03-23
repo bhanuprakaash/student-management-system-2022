@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class StudentDao implements Dao<Student>{
     private final List<Student> students = new ArrayList<>();
     @Override
-    public Student get(String id) throws NoSuchStudentIdExistsException {
+    public Student get(String id){
         return students.stream()
                 .filter(u -> id.equals(u.getStudentId()))
                 .findFirst()
@@ -33,8 +32,10 @@ public class StudentDao implements Dao<Student>{
     }
 
     @Override
-    public void update(Student newValues) {
-        get(newValues.getStudentId());
+    public void update(Student newValues) throws NoSuchStudentIdExistsException{
+        if (students.stream().noneMatch(u -> newValues.getStudentId().equals(u.getStudentId()))) {
+            throw new NoSuchStudentIdExistsException(newValues.getStudentId());
+        }
         students.stream()
                 .filter(u -> newValues.getStudentId().equals(u.getStudentId()))
                 .findFirst()
