@@ -7,6 +7,7 @@ import service.StudentService;
 import exceptions.NoSuchStudentIdExistsException;
 import exceptions.StudentIdAlreadyExistsException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,18 +74,13 @@ public class Main {
                     System.out.print("Enter your choice: ");
                     int choice = scanner.nextInt();
                     System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
-                    switch (choice){
-                        case 1 -> studentService.sortStudentsById().forEach(student ->
-                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
-                        );
-                        case 2 -> studentService.sortStudentsByFirstName().forEach(student ->
-                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
-                        );
-                        case 3 -> studentService.sortStudentsByLastName().forEach(student ->
-                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
-                        );
-                        default -> System.out.println("No Such Item");
+                    if (choice<1 || choice>3){
+                        System.out.println("No Such Item");
+                        break;
                     }
+                    studentService.sortStudents(choice).forEach(student ->
+                            System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                    );
                     System.out.println();
                 }
                 case Menu.DELETE_STUDENT->{

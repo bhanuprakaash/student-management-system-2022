@@ -4,6 +4,7 @@ import dao.Dao;
 import model.Student;
 
 
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentService {
@@ -22,7 +23,7 @@ public class StudentService {
     }
 
     public void addStudent(Student student){
-        studentDao.save(student);
+        studentDao.add(student);
     }
 
     public void updateStudent(Student newValues){
@@ -33,16 +34,21 @@ public class StudentService {
         studentDao.delete(studentId);
     }
 
-    public List<Student> sortStudentsById(){
-        return studentDao.sortStudentsById();
-    }
-
-    public List<Student> sortStudentsByFirstName(){
-        return studentDao.sortStudentsByFirstName();
-    }
-
-    public List<Student> sortStudentsByLastName(){
-        return studentDao.sortStudentsByLastName();
+    public List<Student> sortStudents(int choice){
+        switch (choice){
+            case 1 -> {
+                return studentDao.sortStudents(Comparator.comparing(Student::getStudentId));
+            }
+            case 2 -> {
+                return studentDao.sortStudents(Comparator.comparing(Student::getFirstName));
+            }
+            case 3 -> {
+                return studentDao.sortStudents(Comparator.comparing(Student::getLastName));
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
 }
