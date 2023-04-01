@@ -2,12 +2,12 @@ package presentation;
 
 import dao.Dao;
 import dao.StudentDao;
+import exceptions.InvalidOptionException;
 import model.Student;
 import service.StudentService;
 import exceptions.NoSuchStudentIdExistsException;
 import exceptions.StudentIdAlreadyExistsException;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -74,13 +74,14 @@ public class Main {
                     System.out.print("Enter your choice: ");
                     int choice = scanner.nextInt();
                     System.out.printf("%-15s%-15s%-15s%n","Student Id","First Name","Last Name");
-                    if (choice<1 || choice>3){
-                        System.out.println("No Such Item");
-                        break;
+                    try{
+                        studentService.sortStudents(choice).stream().forEach(student ->
+                                System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
+                        );
                     }
-                    studentService.sortStudents(choice).forEach(student ->
-                            System.out.printf("%-15s%-15s%-15s%n",student.getStudentId(),student.getFirstName(),student.getLastName())
-                    );
+                    catch (InvalidOptionException e){
+                        System.err.println(e.getMessage());
+                    }
                     System.out.println();
                 }
                 case Menu.DELETE_STUDENT->{

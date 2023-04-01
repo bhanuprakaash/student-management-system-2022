@@ -2,7 +2,7 @@ package service;
 
 import dao.Dao;
 import model.Student;
-
+import exceptions.InvalidOptionException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -45,8 +45,8 @@ public class StudentService {
             case 3 -> {
                 return studentDao.sortStudents(Comparator.comparing(Student::getLastName));
             }
-            default -> {
-                return null;
+            default ->{
+                throw new InvalidOptionException(choice);
             }
         }
     }
